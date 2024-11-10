@@ -1,6 +1,6 @@
 <?php
-
-use App\Http\Controllers\HomeController;
+ 
+use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,15 +14,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     // return response()->json(['message' => 'Hello Worldddd!']);
 });
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
-Route::post('products', [ProductController::class, 'store'])->name('products.store');
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::get('login', [AuthController::class, 'formLogin'])->name('form_login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['prefix' => 'products', 'middleware' => 'check_user', 'as' => 'products.'], function () {
+    Route::get('/create', [ProductController::class, 'create'])->name('create');
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
+    Route::put('/{product}', [ProductController::class, 'update'])->name('update');
+    Route::get('/{product}', [ProductController::class, 'show'])->name('show');
+    Route::post('/', [ProductController::class, 'store'])->name('store');
+    Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+});
+ 

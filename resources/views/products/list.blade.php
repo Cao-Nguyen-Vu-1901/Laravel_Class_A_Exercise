@@ -1,3 +1,15 @@
+@extends('layouts.master')
+
+@section('title', 'List products')
+
+@section('styles') 
+<style> 
+</style>
+@stop
+
+@section('content')
+@yield('breadcrumb')
+
 <h1 class="page-title">List product</h1>
 
 @if (Session::has('success'))
@@ -55,134 +67,4 @@
     });
 </script>
 
-<style>
-    /* Toàn bộ trang */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-        margin: 0;
-        padding: 20px;
-    }
-
-    /* Tiêu đề trang */
-    .page-title {
-        font-size: 24px;
-        color: #007bff;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    /* Thông báo */
-    .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 4px;
-        font-size: 14px;
-        text-align: center;
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-
-    .alert-error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-
-    /* Bảng sản phẩm */
-    .product-table {
-        width: 100%;
-        border-collapse: collapse;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-
-    .product-header {
-        background-color: #007bff;
-        color: #fff;
-        padding: 12px;
-        text-align: left;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-align: center;
-    }
-
-    .product-row:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .product-cell {
-        padding: 12px;
-        border-bottom: 1px solid #ddd;
-        text-align: center;
-    }
-
-    /* Nút hành động */
-    .btn {
-        padding: 8px 16px;
-        text-decoration: none;
-        font-size: 14px;
-        border-radius: 4px;
-        display: inline-block;
-        color: #fff;
-    }
-
-    .btn-create {
-        background-color: white;
-        border: 1px solid #007bff;
-        color: #007bff;
-        margin: 5px 0;
-    }
-
-    .btn-create:hover {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: white;
-    }
-
-    .btn-edit {
-        background-color: white;
-        border: 1px solid rgb(129, 142, 150);
-        color: rgb(129, 142, 150);
-        margin: 5px 0;
-    }
-
-    .btn-edit:hover {
-        background-color: rgb(129, 142, 150);
-        border-color: rgb(129, 142, 150);
-        color: white;
-    }
-
-    .btn-show {
-        background-color: white;
-        border: 1px solid rgb(102, 195, 203);
-        color: rgb(102, 195, 203);
-        margin: 5px 0;
-    }
-
-    .btn-show:hover {
-        background-color: rgb(102, 195, 203);
-        border-color: rgb(102, 195, 203);
-        color: white;
-    }
-
-    .btn-delete {
-        background-color: white;
-        border: 1px solid red;
-        color: red;
-        margin: 5px 0;
-    }
-
-    .btn-delete:hover {
-        background-color: red;
-        border-color: red;
-        color: white;
-    }
-</style>
+@stop
