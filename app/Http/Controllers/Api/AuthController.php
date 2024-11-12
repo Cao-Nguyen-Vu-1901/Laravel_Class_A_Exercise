@@ -48,7 +48,9 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $authorizationHeader = $request->header('Authorization');
+        
         $result = $this->authService->logout($authorizationHeader);
+        
         if ($result['status']) {
             return response()->api_success('Logout success');
         }
