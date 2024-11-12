@@ -48,17 +48,12 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $authorizationHeader = $request->header('Authorization');
-        
-        if ($authorizationHeader) {
-            $token = str_replace('Bearer ', '', $authorizationHeader);
-    
-            $tokenParts = explode('|', $token);
-     
-            if (isset($tokenParts[0])) {
-                $tokenId = $tokenParts[0];
-                $this->authService->logout($tokenId);
-            }
+        $result = $this->authService->logout($authorizationHeader);
+        if ($result['status']) {
+            return response()->api_success('Logout success');
         }
+
+        return response()->api_error('Invalid token', $result['message']);
     }
     
     public function checkToken()

@@ -60,13 +60,37 @@ class AuthService
         ];
     }
 
-    public function logout($id)
+    public function logout($authorizationHeader)
     {
-        $token = PersonalAccessToken::find($id);
+        if ($authorizationHeader) {
+            $tokenHeader = str_replace('Bearer ', '', $authorizationHeader);
+    
+            $tokenParts = explode('|', $tokenHeader);
+    
+            if (count($tokenParts) === 2) {
+                $tokenId = $tokenParts[0];
 
-        if ($token) {
-            $token->expires_at = Carbon::now();
-            $token->save();
-        } 
+                $tokenValue = $tokenParts[1];
+    
+                $token = PersonalAccessToken::find($tokenId);
+    
+                $hashedToken = hash('sha256', $tokenValue);
+
+                if (hash_equals($token->token, $hashedToken)) {
+                    $token->expires_at = Carbon::now();
+
+                    $token->save();
+
+                    return [
+                        'status' => true,
+                        'message' => 'Logout success',
+                    ];
+                }
+            }
+        }
+        return [
+            'status' => false,
+            'message' => 'Invalid token',
+        ];
     }
 }
